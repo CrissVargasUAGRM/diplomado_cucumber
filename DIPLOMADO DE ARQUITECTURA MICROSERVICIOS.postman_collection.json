@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "f72a60ee-5048-4f24-abd2-c0d4ff6a6470",
+		"name": "DIPLOMADO DE ARQUITECTURA MICROSERVICIOS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10963912"
+	},
+	"item": [
+		{
+			"name": "OBTENER TODAS LAS PERSONAS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array with at least one element\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Each element in the response has a non-empty 'id' field\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    responseData.forEach(function (element) {\r",
+							"        pm.expect(element.id).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Each element in the response has a non-empty 'name' field\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"\r",
+							"    pm.expect(responseData[0].name.length).to.be.above(1);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Each element in the response has a non-empty 'lastName' field\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    responseData.forEach(function (person) {\r",
+							"        pm.expect(person.lastName).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Each element in the response has a non-empty 'ci' field\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"\r",
+							"    responseData.forEach(function (element) {\r",
+							"        pm.expect(element.ci).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{URL_PRINCIPAL}}/persons",
+					"host": [
+						"{{URL_PRINCIPAL}}"
+					],
+					"path": [
+						"persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear la persona",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var items = JSON.parse(pm.environment.get(\"items\"));\r",
+							"var indexActual = pm.environment.get(\"indexActual\");\r",
+							"if(indexActual >= items.length){\r",
+							"    indexActual = 0;\r",
+							"}\r",
+							"var item = items[indexActual];\r",
+							"pm.environment.set(\"name\", item.name);\r",
+							"pm.environment.set(\"lastName\", item.lastName);\r",
+							"pm.environment.set(\"ci\", item.ci);\r",
+							"pm.environment.set(\"userId\", item.userId);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var indexActual = pm.environment.get(\"indexActual\");\r",
+							"var items = JSON.parse(pm.environment.get(\"items\"));\r",
+							"var item = items[indexActual];\r",
+							"\r",
+							"if(indexActual < items.length-1){\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Response has required fields\", function () {\r",
+							"        const responseData = pm.response.json();\r",
+							"\r",
+							"        pm.expect(responseData).to.be.an('object');\r",
+							"        pm.expect(responseData.id).to.exist;\r",
+							"        pm.expect(responseData.name).to.exist;\r",
+							"        pm.expect(responseData.lastName).to.exist;\r",
+							"        pm.expect(responseData.ci).to.exist;\r",
+							"        pm.expect(responseData.userId).to.exist;\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Name is a non-empty string\", function () {\r",
+							"        const responseData = pm.response.json();\r",
+							"        pm.expect(responseData).to.be.an('object');\r",
+							"        pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.not.be.empty;\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"La respuesta contiene un UUID valido en el objeto de respuesta\", function () {\r",
+							"        const responseData = pm.response.json();\r",
+							"        const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"        pm.expect(responseData.id).to.match(uuidRegex);\r",
+							"    });\r",
+							"}else{\r",
+							"        pm.test(\"Name is a empty Error\", function () {\r",
+							"        const responseData = pm.response.json();\r",
+							"        console.log(responseData);\r",
+							"        pm.expect(responseData.name).to.be.equals('');\r",
+							"        pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.be.empty;\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"indexActual = parseInt(indexActual) + 1;\r",
+							"if (indexActual >= items.length) {\r",
+							"    indexActual = 0;\r",
+							"}\r",
+							"pm.environment.set(\"indexActual\", indexActual);\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{name}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"ci\": \"{{ci}}\",\r\n  \"userId\": \"{{userId}}\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8083/person/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"person",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

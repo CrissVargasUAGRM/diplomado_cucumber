@@ -1,0 +1,139 @@
+{
+	"id": "b9ef9bea-d112-4119-9672-1f0a7ce5408a",
+	"name": "DIPLOMADO DE ARQUITECTURA MICROSERVICIOS",
+	"timestamp": "2023-08-25T04:25:22.016Z",
+	"collection_id": "10963912-f72a60ee-5048-4f24-abd2-c0d4ff6a6470",
+	"folder_id": 0,
+	"environment_id": "10963912-5e60c8eb-8a0b-4e19-bebe-fff458446bec",
+	"totalPass": 21,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-08-25T04:25:20.752Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "6efacf98-da9e-4c2b-91eb-eee4fd16e501",
+			"name": "OBTENER TODAS LAS PERSONAS",
+			"url": "http://localhost:8083/persons",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				25,
+				8,
+				9,
+				8,
+				9,
+				8
+			],
+			"allTests": [
+				{},
+				{},
+				{},
+				{},
+				{},
+				{}
+			]
+		},
+		{
+			"id": "3ad1a18a-ce28-4e39-808a-45ea1f9af779",
+			"name": "crear la persona",
+			"url": "http://localhost:8083/person/create",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has required fields": true,
+				"Name is a non-empty string": true,
+				"La respuesta contiene un UUID valido en el objeto de respuesta": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 5,
+					"fail": 0
+				},
+				"Response has required fields": {
+					"pass": 5,
+					"fail": 0
+				},
+				"Name is a non-empty string": {
+					"pass": 5,
+					"fail": 0
+				},
+				"La respuesta contiene un UUID valido en el objeto de respuesta": {
+					"pass": 5,
+					"fail": 0
+				},
+				"Name is a empty Error": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				43,
+				8,
+				12,
+				9,
+				8,
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has required fields": true,
+					"Name is a non-empty string": true,
+					"La respuesta contiene un UUID valido en el objeto de respuesta": true
+				},
+				{
+					"Status code is 200": true,
+					"Response has required fields": true,
+					"Name is a non-empty string": true,
+					"La respuesta contiene un UUID valido en el objeto de respuesta": true
+				},
+				{
+					"Status code is 200": true,
+					"Response has required fields": true,
+					"Name is a non-empty string": true,
+					"La respuesta contiene un UUID valido en el objeto de respuesta": true
+				},
+				{
+					"Status code is 200": true,
+					"Response has required fields": true,
+					"Name is a non-empty string": true,
+					"La respuesta contiene un UUID valido en el objeto de respuesta": true
+				},
+				{
+					"Name is a empty Error": true
+				},
+				{
+					"Status code is 200": true,
+					"Response has required fields": true,
+					"Name is a non-empty string": true,
+					"La respuesta contiene un UUID valido en el objeto de respuesta": true
+				}
+			]
+		}
+	],
+	"count": 6,
+	"totalTime": 155,
+	"collection": {
+		"requests": [
+			{
+				"id": "6efacf98-da9e-4c2b-91eb-eee4fd16e501",
+				"method": "GET"
+			},
+			{
+				"id": "3ad1a18a-ce28-4e39-808a-45ea1f9af779",
+				"method": "POST"
+			}
+		]
+	}
+}

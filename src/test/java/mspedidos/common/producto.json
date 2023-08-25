@@ -1,0 +1,5 @@
+{
+  "stockActual": "${stockActual}",
+  "precioVenta": "${precioVenta}",
+  "nombre": "${nombre}"
+}
