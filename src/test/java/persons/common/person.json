@@ -1,0 +1,6 @@
+{
+  "name": "${name}",
+  "lastName": "${lastName}",
+  "ci": "${ci}",
+  "userId": "${userId}"
+}
